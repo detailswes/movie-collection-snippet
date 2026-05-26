@@ -1,0 +1,12 @@
+[
+  {
+    "_id": { "$oid": "6a104fd3a95aa64a67b3e06d" },
+    "email": "alice@demo.com",
+    "password": "$2b$12$4Z8j3Cr6iIsSE2V05xDg0.tk/IJp4/4s0DwDSYYyvWZJeghHRKrd2"
+  },
+  {
+    "_id": { "$oid": "6a104fd3a95aa64a67b3e06e" },
+    "email": "bob@demo.com",
+    "password": "$2b$12$P6ffGpJ1nWge41M0Lj70BOpuB32hkBUFbdhCgU550Nh7fvDGmlm5W"
+  }
+]

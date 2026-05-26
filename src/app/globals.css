@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-5xl lg:text-[64px] font-semibold text-white;
+  }
+
+  h2 {
+    @apply text-[32px] lg:text-5xl font-bold text-white;
+  }
+
+  h6 {
+    @apply text-xl text-white font-medium;
+  }
+
+  p {
+    @apply text-sm text-white font-normal;
+  }
+}
+
+
+@layer components {
+  .inputbox {
+    @apply bg-input h-[45px] rounded-[10px] text-sm text-white focus:ring-1 focus:ring-primary p-4 outline-none w-full;
+  }
+
+  .light-button {
+    @apply flex items-center justify-center bg-transparent border-white border rounded-[10px] text-white text-base font-bold h-[54px] w-full hover:bg-white hover:text-background transition-colors;
+  }
+
+  .button {
+    @apply flex items-center justify-center bg-primary rounded-[10px] text-white text-base font-bold h-[54px] w-full hover:opacity-90 transition-opacity;
+  }
+
+  .pagination-control {
+    @apply bg-transparent outline-none font-bold text-base text-white mx-2;
+  }
+
+  .pagination-count {
+    @apply py-2 px-4 bg-primary rounded font-bold text-white text-base outline-none mx-2;
+  }
+}
