@@ -4,34 +4,42 @@
 
 ---
 
-## What This Project Is
+## About This Project
 
-**My Movies** is a personal movie collection manager — but more importantly, it is a **reference implementation** that solves a set of recurring real-world problems that developers face when building full-stack Next.js applications:
+**My Movies** is a private movie watchlist: create an account, sign in, and add films with title, year, notes, and a poster. Only you can view or change your entries.
+
+The repo is a runnable full-stack example—**Next.js 14** for the UI and API, **MongoDB** for storage, **Cloudinary** for images—with sign-in, add/edit/delete, and practical security (hashed passwords, secure cookies, and strict ownership of each user’s data).
+
+---
+
+## What This Project Is (For Developers)
+
+Beyond the movie-list demo, this repo is a **reference implementation** for recurring problems when building full-stack Next.js apps:
 
 | Problem | What this project demonstrates |
 |---|---|
 | Where do I put my API in Next.js? | Pages Router (`pages/api/`) for REST endpoints alongside App Router for UI pages |
-| How do I store auth tokens securely? | JWT in an `HttpOnly; SameSite=Strict` server-set cookie — not `localStorage` |
+| How do I store auth tokens securely? | JWT in an `HttpOnly; SameSite=Strict` server-set cookie - not `localStorage` |
 | How do I structure business logic cleanly? | Thin route handlers + dedicated service layer (`authService`, `movieService`) |
-| How do I avoid storing large files in MongoDB? | Cloudinary CDN upload — only the short URL is persisted |
+| How do I avoid storing large files in MongoDB? | Cloudinary CDN upload - only the short URL is persisted |
 | How do I validate data consistently? | Joi on the server, Yup on the client, same rules in both places |
 | How do I protect all my routes without repeating myself? | Shared `jwtAuth` middleware wrapping every protected handler |
 | How do I handle rendering crashes gracefully? | React `ErrorBoundary` class component wrapping the entire app tree |
 
-This snippet is intentionally scoped — it is complete enough to run in production, but small enough to read and understand in a single sitting.
+This snippet is intentionally scoped - it is complete enough to run in production, but small enough to read and understand in a single sitting.
 
 ---
 
 ## Features
 
-- **User accounts** — register, sign in, sign out with secure session management
-- **Movie CRUD** — create, read, update, and delete your own movies
-- **Poster uploads** — drag-and-drop image upload via Cloudinary (5 MB limit enforced client- and server-side)
-- **Paginated grid** — responsive movie card grid with skeleton loading states
-- **Protected routes** — middleware redirects unauthenticated users to sign-in automatically
-- **Ownership enforcement** — users can only see and modify their own movies
-- **Error handling** — API errors surface a retry screen; render crashes are caught by ErrorBoundary
-- **Rate limiting** — brute-force protection on the login endpoint (10 attempts / 15 min per IP)
+- **User accounts** - register, sign in, sign out with secure session management
+- **Movie CRUD** - create, read, update, and delete your own movies
+- **Poster uploads** - drag-and-drop image upload via Cloudinary (5 MB limit enforced client- and server-side)
+- **Paginated grid** - responsive movie card grid with skeleton loading states
+- **Protected routes** - middleware redirects unauthenticated users to sign-in automatically
+- **Ownership enforcement** - users can only see and modify their own movies
+- **Error handling** - API errors surface a retry screen; render crashes are caught by ErrorBoundary
+- **Rate limiting** - brute-force protection on the login endpoint (10 attempts / 15 min per IP)
 
 ---
 
@@ -105,13 +113,13 @@ src/
 
 ### Key Design Decisions
 
-**Dual-router pattern** — Pages Router (`pages/api/`) handles the REST API while App Router (`src/app/`) handles all UI pages. This is a valid Next.js 14 pattern that keeps the API surface familiar (file-based routing, no server actions) while using the modern App Router for the frontend.
+**Dual-router pattern** - Pages Router (`pages/api/`) handles the REST API while App Router (`src/app/`) handles all UI pages. This is a valid Next.js 14 pattern that keeps the API surface familiar (file-based routing, no server actions) while using the modern App Router for the frontend.
 
-**HttpOnly cookie auth** — The JWT is set server-side as an `HttpOnly` cookie on login. It cannot be read or stolen by JavaScript, eliminating the XSS token-theft vulnerability of `localStorage` or client-written cookies. The browser sends it automatically on every same-origin request.
+**HttpOnly cookie auth** - The JWT is set server-side as an `HttpOnly` cookie on login. It cannot be read or stolen by JavaScript, eliminating the XSS token-theft vulnerability of `localStorage` or client-written cookies. The browser sends it automatically on every same-origin request.
 
-**Service layer separation** — Route handler files are thin dispatchers that only parse the request and send the response. All business logic lives in `pages/api/services/`, making it independently testable without spinning up HTTP.
+**Service layer separation** - Route handler files are thin dispatchers that only parse the request and send the response. All business logic lives in `pages/api/services/`, making it independently testable without spinning up HTTP.
 
-**Cloudinary over Base64** — Storing images as Base64 in MongoDB inflates document sizes by ~33%, pushes against MongoDB's 16 MB document limit, and bypasses all Next.js `<Image>` optimisation. Cloudinary stores the file on a CDN; MongoDB stores a 70-character URL.
+**Cloudinary over Base64** - Storing images as Base64 in MongoDB inflates document sizes by ~33%, pushes against MongoDB's 16 MB document limit, and bypasses all Next.js `<Image>` optimisation. Cloudinary stores the file on a CDN; MongoDB stores a 70-character URL.
 
 ---
 
@@ -120,8 +128,8 @@ src/
 ### Prerequisites
 
 - Node.js 18+
-- A MongoDB database — free tier at [cloud.mongodb.com](https://cloud.mongodb.com)
-- A Cloudinary account — free tier at [cloudinary.com](https://cloudinary.com)
+- A MongoDB database - free tier at [cloud.mongodb.com](https://cloud.mongodb.com)
+- A Cloudinary account - free tier at [cloudinary.com](https://cloudinary.com)
 
 ### 1. Clone and install
 
@@ -162,7 +170,7 @@ CLOUDINARY_API_SECRET=<your-api-secret>
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — you will be redirected to `/sign-in` automatically.
+Open [http://localhost:3000](http://localhost:3000) - you will be redirected to `/sign-in` automatically.
 
 ### 4. Create your first account
 
@@ -183,7 +191,7 @@ Protected endpoints require a valid `token` HttpOnly cookie, which is set automa
 
 | Method | Endpoint | Protected | Description |
 |---|---|---|---|
-| `POST` | `/api/users` | No | Sign in — sets `HttpOnly` JWT cookie |
+| `POST` | `/api/users` | No | Sign in - sets `HttpOnly` JWT cookie |
 | `POST` | `/api/users/register` | No | Register a new account |
 | `POST` | `/api/users/logout` | No | Clear the auth cookie |
 
@@ -201,7 +209,7 @@ Protected endpoints require a valid `token` HttpOnly cookie, which is set automa
 
 | Method | Endpoint | Protected | Description |
 |---|---|---|---|
-| `POST` | `/api/upload` | Yes | Upload a poster image to Cloudinary — returns `{ url: string }` |
+| `POST` | `/api/upload` | Yes | Upload a poster image to Cloudinary - returns `{ url: string }` |
 
 ---
 
@@ -215,21 +223,21 @@ Protected endpoints require a valid `token` HttpOnly cookie, which is set automa
 | CORS | Restricted to `NEXT_PUBLIC_SITE_URL` |
 | Ownership enforcement | Every movie operation checks `user_id` matches the authenticated user |
 | Input validation | Joi on the server, Yup on the client |
-| Image upload | Processed server-side only — Cloudinary API secret is never sent to the browser |
+| Image upload | Processed server-side only - Cloudinary API secret is never sent to the browser |
 | Body size limit | 5 MB cap enforced on all routes that accept a request body |
 
 ---
 
 ## Deployment
 
-### Vercel + MongoDB Atlas + Cloudinary (recommended — all free tier)
+### Vercel + MongoDB Atlas + Cloudinary (recommended - all free tier)
 
 1. Push the repository to GitHub
 2. Import it at [vercel.com](https://vercel.com) → **Add New Project**
 3. Add every variable from `.env.example` in the Vercel **Environment Variables** dashboard
 4. Set `NEXT_PUBLIC_SITE_URL` to your Vercel production URL (e.g. `https://my-movies.vercel.app`)
-5. Generate a **new** `SECRET_KEY` for production — never reuse the local development value
-6. Click **Deploy** — Vercel rebuilds automatically on every push to `main`
+5. Generate a **new** `SECRET_KEY` for production - never reuse the local development value
+6. Click **Deploy** - Vercel rebuilds automatically on every push to `main`
 
 ---
 
