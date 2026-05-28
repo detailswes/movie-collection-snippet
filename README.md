@@ -1,14 +1,16 @@
-# My Movies
+# Movie-Collection-Snippet
 
-> A production-ready, full-stack code snippet demonstrating how to build a secure, authenticated CRUD application with Next.js 14, MongoDB, and Cloudinary image storage.
+> A production-ready full-stack application showcasing how to build a secure and authenticated CRUD platform using Next.js 14, MongoDB, and Cloudinary for image storage.
 
 ---
 
 ## About This Project
 
-**My Movies** is a private movie watchlist: create an account, sign in, and add films with title, year, notes, and a poster. Only you can view or change your entries.
+Movie Collection is a private movie watchlist application where users can create an account, sign in securely, and manage their personal movie collection with titles, release years, notes, and poster uploads.
 
-The repo is a runnable full-stack example—**Next.js 14** for the UI and API, **MongoDB** for storage, **Cloudinary** for images—with sign-in, add/edit/delete, and practical security (hashed passwords, secure cookies, and strict ownership of each user’s data).
+This repository is designed as a real-world full-stack example using Next.js 14 for both the frontend and backend APIs, MongoDB for database storage, and Cloudinary for image management.
+
+The project includes authentication, movie creation and management, image uploads, edit and delete functionality, and important security practices such as hashed passwords, secure cookies, and strict ownership rules to ensure users can only access and manage their own data.
 
 ---
 
