@@ -1,4 +1,5 @@
 "use client";
+import { use } from "react";
 import MoviesForm from "components/MoviesForm";
 import { useGetMovieByIdQuery } from "services/movies";
 import Error from "common/error";
@@ -20,7 +21,7 @@ const FormSkeleton = () => (
 );
 
 const EditMovie = ({ params }) => {
-  const id = params.id;
+  const { id } = use(params);
   const { data: movie, isLoading, error } = useGetMovieByIdQuery(id);
 
   if (error) return <Error />;
